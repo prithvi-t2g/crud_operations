@@ -1,4 +1,4 @@
-let count = 0
+let count = 1
 data = fetch("https://jsonplaceholder.typicode.com/albums")
     .then((data) => {
         // console.log(data.json())
@@ -13,7 +13,7 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
             <td id = ci${count}>${count}</td>
             <td id = cuid${count}>${values.userId}</td>
             <td id = ct${count}>${values.title}</td>
-            <td><buttton type="button" class="btn btn-danger" onclick = "deleterow()">Delete</buttton></td>
+            <td><buttton type="button" class="btn btn-danger" onclick = "deleterow(${count})">Delete</buttton></td>
             <td><buttton id = "edit-btn" type="button" class="btn btn-warning" onclick = "editrow(${count})" >Edit</buttton></td>
           </tr>`
           count++;
@@ -21,7 +21,7 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
         })
         
         document.getElementById("td").innerHTML = td
-        console.log(count)
+        // console.log(count)
         
     })
     let ref = 0 
@@ -31,8 +31,8 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
         document.querySelector("#form").style.display = "block";
         ref = x
         // console.log(ref)
-
-                // return
+        
+        // return
     }
     
     submitedit =(ref)=>{
@@ -40,8 +40,30 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
         document.querySelector("#form").style.display = "None";
 
     }
-    deleterow = (ref)=>{
-        document.getElementById("tr"+ref).innerHTML = ""
+    deleterow = (x)=>{
+        let tllen = document.getElementsByTagName("tr").length
+        let b = 1
+        console.log(x)
+        document.getElementById("tr"+x).style.display = "none"  
+        let c1 = Number(document.getElementById("ci"+x).innerHTML)
+        for(let i = c1; i<=tllen - 1; i++){
+            document.getElementById("ci"+i).innerHTML = i - 1   
+            b = b + 1; 
+            tllen = tllen - b;
+        }
+        // console.log(ref)
+    }
+
+    search = ()=>{
+        searchval = (document.getElementById("searchbar").value)
+        for(let i = 0; i<=document.getElementsByTagName("tr").length; i++)
+        if(searchval == document.getElementsByTagName("tr"+ref)[2]){
+            console.log("tr"+ref)
+        }
+        else{
+            console.log("not found")
+
+        }
     }
         
 
@@ -61,8 +83,7 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
         document.querySelector("#table").innerHTML += template
         count++
         console.log(count)
-        
-        
+      
         
 
     })
