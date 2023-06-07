@@ -30,6 +30,7 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
         console.log(document.getElementById("inpedit").value)
         document.querySelector("#form").style.display = "block";
         ref = x
+        // document.getElementById("divsearch").innerHTML = ""
         // console.log(ref)
         
         // return
@@ -40,33 +41,46 @@ data = fetch("https://jsonplaceholder.typicode.com/albums")
         document.querySelector("#form").style.display = "None";
 
     }
+    idel = 0
     deleterow = (x)=>{
-        let tllen = document.getElementsByTagName("tr").length
-        let b = 1
+        // idel = x
+        // if(x>idel){
+        document.getElementById("tr"+x).style.display = "None";
+        idel++  
+    // }
+    // else{
+    //     document.getElementById("table").deleteRow(idel-x);
+    //     idel++
+    //     }
         console.log(x)
-        document.getElementById("tr"+x).style.display = "none"  
-        let c1 = Number(document.getElementById("ci"+x).innerHTML)
-        for(let i = c1; i<=tllen - 1; i++){
-            document.getElementById("ci"+i).innerHTML = i - 1   
-            b = b + 1; 
-            tllen = tllen - b;
-        }
-        // console.log(ref)
-    }
+        console.log(idel)
 
+        // for(let r = x; r <= document.getElementById("table").rows.length; r++){
+        //     document.getElementById("ci"+x).innerHTML = Number(document.getElementById("ci"+(x)).innerHTML) - 1
+        // }
+    }
+    var srow = ""
     search = ()=>{
-        searchval = (document.getElementById("searchbar").value)
-        for(let i = 0; i<=document.getElementsByTagName("tr").length; i++)
-        if(searchval == document.getElementsByTagName("tr"+ref)[2]){
-            console.log("tr"+ref)
+        searchval = document.getElementById("searchbar").value.toString();
+
+        // console.log(document.getElementById("ct"+x).innerHTML)
+        for(var i = 1; i < Number(document.getElementById("table").rows.length); i++){
+            var j = i.toString()
+            // console.log(j)
+        srow = srow + document.getElementById("ct"+j).innerHTML
+        if(srow.search(searchval)>=0){
+            // console.log(srow.search(searchval))
+            console.log(j)
+            console.log(document.getElementById("ct"+j).innerHTML)
         }
         else{
-            console.log("not found")
-
+            document.getElementById("tr"+j).style.display = "None"            
+            // document.getElementById("table").deleteRow(i)            
+        }
+        srow = ""
         }
     }
-        
-
+    
     document.querySelector("#btnsubmit").addEventListener('click', ()=>{
         let ttl = document.querySelector("#inpttl").value
         let uid = document.querySelector("#inpuid").value
